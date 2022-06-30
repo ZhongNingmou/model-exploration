@@ -1,0 +1,4 @@
+artifact_location: file:///Users/pzhn0857/Documents/stage2/with-grafana-db/real_data/mlruns/1
+experiment_id: '1'
+lifecycle_stage: active
+name: Dataset Drift Analysis with Evidently

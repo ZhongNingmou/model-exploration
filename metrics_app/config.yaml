@@ -1,0 +1,26 @@
+datasets:
+  detect_dataset:
+    column_mapping:
+      categorical_features: [ ]
+      numerical_features:
+      - Ia
+      - Ib
+      - Ic
+      - Va
+      - Vb
+      - Vc
+      target: Output (S)
+    data_format:
+      header: true
+      separator: ','
+    monitors:
+      - data_drift
+      - classification_performance
+      # - num_target_drift
+service:
+  calculation_period_sec: 2
+  min_reference_size: 50
+  moving_reference: false
+  datasets_path: datasets
+  use_reference: true
+  window_size: 5

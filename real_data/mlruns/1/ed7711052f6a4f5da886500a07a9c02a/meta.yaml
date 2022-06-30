@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/pzhn0857/Documents/stage2/with-grafana-db/real_data/mlruns/1/ed7711052f6a4f5da886500a07a9c02a/artifacts
+end_time: 1656299294815
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: ed7711052f6a4f5da886500a07a9c02a
+run_uuid: ed7711052f6a4f5da886500a07a9c02a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1656299294767
+status: 3
+tags: []
+user_id: pzhn0857
