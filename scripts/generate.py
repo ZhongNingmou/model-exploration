@@ -111,16 +111,17 @@ def get_data_detect_classification() -> Tuple[pd.DataFrame, pd.DataFrame]:
     categorical_features = []
     features = numerical_features 
     
-    ref_data_sample = data[:6000].sample(400, random_state=0)
-    prod_data_sample = data[6000:].sample(400, random_state=0)
+    reference_kdd_data, production_kdd_data = model_selection.train_test_split(
+        data, random_state=0, train_size=0.2, test_size=0.1
+    )
 
     classification_model = neighbors.KNeighborsClassifier(n_neighbors=1)
-    classification_model.fit(ref_data_sample[features], ref_data_sample[target])
+    classification_model.fit(reference_kdd_data[features], reference_kdd_data[target])
 
-    ref_data_sample["prediction"] = classification_model.predict(ref_data_sample[features])
-    prod_data_sample["prediction"] = classification_model.predict(prod_data_sample[features])
+    reference_kdd_data["prediction"] = classification_model.predict(reference_kdd_data[features])
+    production_kdd_data["prediction"] = classification_model.predict(production_kdd_data[features])
 
-    return ref_data_sample[features + [target, "prediction"]], prod_data_sample
+    return reference_kdd_data[features + [target, "prediction"]], production_kdd_data
 
 def main(dataset_name: str, dataset_path: str) -> None:
     logging.info("Generate test data for dataset %s", dataset_name)

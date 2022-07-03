@@ -18,7 +18,7 @@ datasets:
       - classification_performance
       # - num_target_drift
 service:
-  calculation_period_sec: 2
+  calculation_period_sec: 0.5
   min_reference_size: 50
   moving_reference: false
   datasets_path: datasets
