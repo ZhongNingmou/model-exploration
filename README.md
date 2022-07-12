@@ -38,13 +38,13 @@ Each user must have a group ID, i.e, under an existing group
     ```bash
     docker exec -it mc_container_name /bin/sh
     ```
-and set mc alias with 
+3. Set mc alias with 
 
     ```bash
     mc alias set miniohost http://minio:9000
     ```
 
-Then set different policies on the users with the following command 
+4. Set different policies on the users with the following command 
 
     ```bash
     mc admin policy set miniohost POLICY user=user_distingued_name
@@ -52,13 +52,13 @@ Then set different policies on the users with the following command
 
 This policy is the default policy for the user to access all buckets and objects
 
-3. Login to MinIO with LDAPAfter username(cn) and password. Then create a new bucket "mlflow" and modify the access policy
+5. Login to MinIO with LDAPAfter username(cn) and password. Then create a new bucket "mlflow" and modify the access policy
 
-4. Access Grafana UI with http://localhost:3000 and login with username 'admin' and password 'admin'
+6. Access Grafana UI with http://localhost:3000 and login with username 'admin' and password 'admin'
 
-5. run run_example.py to begin data transfer and check data drift dashboard on Grafana general dashboard
+7. run run_example.py to begin data transfer and check data drift dashboard on Grafana general dashboard
 
-6. cd into inference folder and run inferece.py and check results on Mlflow UI with http://localhost:5000
+8. cd into inference folder and run inferece.py and check results on Mlflow UI with http://localhost:5000
 
 ## Containerization
 
