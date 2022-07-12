@@ -1,28 +1,47 @@
-# MLflow On-Premise Deployment using Docker Compose
-Easily deploy an MLflow tracking server with 1 command.
-
-MinIO S3 is used as the artifact store and MySQL server is used as the backend store.
+# Model evaluation utilizing multiple open-source platforms
 
 ## How to run
 
 1. Clone(download) this repository
 
+2. Build and run the containers with `docker-compose`
+
     ```bash
-    git clone https://github.com/sachua/mlflow-docker-compose.git
+    docker-compose up --build
     ```
 
-2. `cd` into the `mlflow-docker-compose` directory
-
-3. Build and run the containers with `docker-compose`
+3. Set environment variables and build MLflow server
 
     ```bash
-    chmod +x wait-for-it.sh
-    docker-compose up -d --build
+    export AWS_SECRET_ACCESS_KEY="minio123" 
+    export AWS_ACCESS_KEY_ID="minio"
+    mlflow server --backend-store-uri postgresql://user:password@127.0.0.1/mlflow --default-artifact-root http://127.0.0.1:9000/mlflow --host 0.0.0.0 --port 5000
     ```
 
 4. Access MLflow UI with http://localhost:5000
 
 5. Access MinIO UI with http://localhost:9000
+
+6. Access LDAP UI with http://localhost:10004
+
+## Set up account and run example
+
+1. Open LDAP UI and login with 'cn=admin,dc=ningmoulocal,dc=com' and password 'admin_pass'.
+
+Create new groups and new users using the following steps:
+    Under the basic root, select Create a child entry, then select Generic: Posix Group to create a new group.
+    Under the new group entry, press Create a child entry, then select Generic: User Account to create a new user.
+Each user must have a group ID, i.e, under an existing group.
+
+2. Set MinIO alias and user policy. Use 'docker exec -it mc_container_name /bin/sh' command to get into bin and set mc alias with 'mc alias set miniohost http://minio:9000' command. Then set different policies on the users with the following command 'mc admin policy set miniohost POLICY user=user_distingued_name'. This policy is the default policy for the user to access all buckets and objects.
+
+3. Login to MinIO with LDAPAfter username(cn) and password. Then create a new bucket "mlflow" and modify the access policy.
+
+4. Access Grafana UI with http://localhost:3000
+
+5. run run_example.py to begin data transfer and check data drift dashboard on Grafana general dashboard.
+
+6. cd into inference folder and run inferece.py and check results on Mlflow UI with http://localhost:5000
 
 ## Containerization
 
@@ -30,7 +49,7 @@ The MLflow tracking server is composed of 4 docker containers:
 
 * MLflow server
 * MinIO object storage server
-* MySQL database server
+* Postgres database server
 
 ## Example
 
