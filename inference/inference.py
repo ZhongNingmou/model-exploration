@@ -15,9 +15,14 @@ if __name__ == '__main__':
     run_id = train(X_train_b, X_test_b, y_train_b, y_test_b)
     #1/2 as new labeled data
     X_train_b, X_test_b, y_train_b, y_test_b = split("data/detect_dataset2.csv")
+    drifts = detect_dataset_drift(X_train_b, 
+                           X_test_b, 
+                           column_mapping=data_columns, 
+                           confidence=0.95,
+                           threshold=0.9)
     cnt = 0
     acc = 0
-    while (acc < 0.9) and cnt < 5:
+    while (drifts == True or acc < 0.9) and cnt < 5:
         run_id = train(X_train_b, X_test_b, y_train_b, y_test_b)
         acc = model_performance("data/detect_dataset2.csv", run_id)
         cnt = cnt + 1  

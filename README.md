@@ -26,20 +26,37 @@
 
 ## Set up account and run example
 
-1. Open LDAP UI and login with 'cn=admin,dc=ningmoulocal,dc=com' and password 'admin_pass'.
+1. Open LDAP UI and login with 'cn=admin,dc=ningmoulocal,dc=com' and password 'admin_pass'
 
 Create new groups and new users using the following steps:
-    Under the basic root, select Create a child entry, then select Generic: Posix Group to create a new group.
-    Under the new group entry, press Create a child entry, then select Generic: User Account to create a new user.
-Each user must have a group ID, i.e, under an existing group.
+    Under the basic root, select Create a child entry, then select Generic: Posix Group to create a new group
+    Under the new group entry, press Create a child entry, then select Generic: User Account to create a new user
+Each user must have a group ID, i.e, under an existing group
 
-2. Set MinIO alias and user policy. Use 'docker exec -it mc_container_name /bin/sh' command to get into bin and set mc alias with 'mc alias set miniohost http://minio:9000' command. Then set different policies on the users with the following command 'mc admin policy set miniohost POLICY user=user_distingued_name'. This policy is the default policy for the user to access all buckets and objects.
+2. Set MinIO alias and user policy. Get into bin with
 
-3. Login to MinIO with LDAPAfter username(cn) and password. Then create a new bucket "mlflow" and modify the access policy.
+    ```bash
+    docker exec -it mc_container_name /bin/sh
+    ```
+and set mc alias with 
 
-4. Access Grafana UI with http://localhost:3000
+    ```bash
+    mc alias set miniohost http://minio:9000
+    ```
 
-5. run run_example.py to begin data transfer and check data drift dashboard on Grafana general dashboard.
+Then set different policies on the users with the following command 
+
+    ```bash
+    mc admin policy set miniohost POLICY user=user_distingued_name
+    ```
+
+This policy is the default policy for the user to access all buckets and objects
+
+3. Login to MinIO with LDAPAfter username(cn) and password. Then create a new bucket "mlflow" and modify the access policy
+
+4. Access Grafana UI with http://localhost:3000 and login with username 'admin' and password 'admin'
+
+5. run run_example.py to begin data transfer and check data drift dashboard on Grafana general dashboard
 
 6. cd into inference folder and run inferece.py and check results on Mlflow UI with http://localhost:5000
 
